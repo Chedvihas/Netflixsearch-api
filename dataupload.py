@@ -29,42 +29,43 @@ def generator(key):
     dict['listed_in'] = data[key]['listed_in']
     dict['description'] = data[key]['description']
     return dict
+def upload():
+    es = Elasticsearch(['https://elastic:6cE9R2GNUefR754084TxtNgg@911c6f6acda14877af9a983a7c3db94f.eastus2.azure.elastic-cloud.com:9243/'])
+    if not es.indices.exists(index="netflix"):
 
-if not es.indices.exists(index="netflix"):
-    
-    with open(r'C:\Users\Chedvihas\Desktop\netflix.json',encoding='utf-8') as f:
-        data = json.load(f)
-        l = list(data['s1'].keys())
-
-
-    d= []
+        with open(r'C:\Users\Chedvihas\Desktop\netflix.json',encoding='utf-8') as f:
+            data = json.load(f)
+            l = list(data['s1'].keys())
 
 
-    for i in data:
-        d.append(generator(i))
+        d= []
 
-    mapping = {
-    "settings": {
-        "netflix": {
-        "max_ngram_diff": 0
-        },
-        "analysis": {
-        "analyzer": {
-            "default": {
-            "tokenizer": "whitespace",
-            "filter": [ "5_gram" ]
+
+        for i in data:
+            d.append(generator(i))
+
+        mapping = {
+        "settings": {
+            "netflix": {
+            "max_ngram_diff": 0
+            },
+            "analysis": {
+            "analyzer": {
+                "default": {
+                "tokenizer": "whitespace",
+                "filter": [ "5_gram" ]
+                }
+            },
+            "filter": {
+                "5_gram": {
+                "type": "ngram",
+                "min_gram": 5,
+                "max_gram": 5
+                }
             }
-        },
-        "filter": {
-            "5_gram": {
-            "type": "ngram",
-            "min_gram": 5,
-            "max_gram": 5
             }
         }
         }
-    }
-    }
-    es.indices.create(index="netflix",body=mapping,ignore=400)
-    helpers.bulk(es,d)
+        es.indices.create(index="netflix",body=mapping,ignore=400)
+        helpers.bulk(es,d)
 
