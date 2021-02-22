@@ -1,0 +1,2 @@
+web: python dataupload.py
+web: python p6.py
