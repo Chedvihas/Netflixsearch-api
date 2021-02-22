@@ -170,8 +170,8 @@ def genresmatch():
     res = es.search(index="netflix", doc_type="doc", body=body)
     return jsonify(res['hits']['hits'])
 
-
-app.run(debug=True)
+if __name__ == '__main__':
+    app.run(debug=True)
 
 
 
