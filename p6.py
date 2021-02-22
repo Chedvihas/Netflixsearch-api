@@ -171,7 +171,7 @@ def genresmatch():
     return jsonify(res['hits']['hits'])
 
 
-app.run(port=5000, debug=True)
+app.run(debug=True)
 
 
 
