@@ -1,2 +1,2 @@
-web:gunicorn p6:app
+web: gunicorn p6:app
 
