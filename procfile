@@ -1,3 +1,4 @@
-web gunicorn dataupload:app
-web gunicorn p6:app
+heroku ps:scale web=1
+web:gunicorn dataupload:app
+web:gunicorn p6:app
 
