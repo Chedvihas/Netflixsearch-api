@@ -2,6 +2,8 @@ from flask import Flask, render_template, request,jsonify
 import json
 from elasticsearch import Elasticsearch
 from elasticsearch import helpers
+import dataupload
+dataupload.upload()
 
 es = Elasticsearch(['https://elastic:6cE9R2GNUefR754084TxtNgg@911c6f6acda14877af9a983a7c3db94f.eastus2.azure.elastic-cloud.com:9243/'])
 ################-------------API---------------###################################
